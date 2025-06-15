@@ -1,0 +1,58 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:3001/api
+    depends_on:
+      - backend
+    networks:
+      - kokushi-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "3001:3000"
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_HOST=db
+      - DATABASE_URL=postgresql://rails:password@db:5432/kokushi_development
+    depends_on:
+      - db
+    networks:
+      - kokushi-network
+    command: bundle exec rails server -b 0.0.0.0 -p 3000
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: kokushi_development
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - kokushi-network
+
+volumes:
+  postgres_data:
+  bundle_cache:
+
+networks:
+  kokushi-network:
+    driver: bridge
