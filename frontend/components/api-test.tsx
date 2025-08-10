@@ -24,7 +24,7 @@ export default function ApiTest() {
         } else {
           setStatus(`❌ API接続失敗: ${response.status}`)
         }
-      } catch (parseError) {
+      } catch {
         setStatus(`❌ JSONパースエラー: レスポンスがHTMLの可能性があります\n${responseText.substring(0, 300)}`)
       }
     } catch (error) {
