@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   validates :encrypted_password, presence: true
   validates :email, uniqueness: true, allow_nil: true
-  validates :is_guest, inclusion: { in: [true, false] }
+  validates :is_guest, inclusion: { in: [ true, false ] }
 
   def self.create_guest_user
     random_string = SecureRandom.hex(10)

@@ -80,6 +80,11 @@ docker-compose exec backend bundle exec brakeman
 
 **データベース**: 環境変数 `DATABASE_HOST` を使用して `localhost`（ローカル）と `db`（Docker）を切り替えます。接続は `backend/config/database.yml` で設定されています。
 
+**Active Storage**: Rails 7.2でファイル管理機能を提供します：
+- PostgreSQLデータベースにファイルメタデータを保存
+- `image_processing` gemによる画像処理対応
+- マイグレーション完了済み（active_storage_blobs、active_storage_attachments、active_storage_variant_records）
+
 **Node.jsバージョン**: `.node-version`、`package.json` engines、DockerイメージにわたってNode.js 22.15.0に固定されています。
 
 **環境変数**:
@@ -97,6 +102,8 @@ docker-compose exec backend bundle exec brakeman
 - `frontend/next.config.ts`: APIプロキシ設定と画像処理
 - `backend/config/database.yml`: データベース接続設定
 - `backend/config/routes.rb`: APIルート定義
+- `backend/spec/rails_helper.rb`: RSpec設定とFactoryBot統合
+- `backend/db/migrate/*_create_active_storage_tables.rb`: Active Storage テーブル定義
 - `.node-version`: Node.jsバージョン指定
 
 ## 開発ルール
