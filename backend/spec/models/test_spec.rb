@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Test, type: :model do
   describe 'バリデーション' do
+    before do
+      TestSession.delete_all
+      Test.delete_all
+    end
+    
     it '年度が必須であること' do
       test = Test.new
       expect(test).not_to be_valid
@@ -18,6 +23,8 @@ RSpec.describe Test, type: :model do
   
   describe 'スコープ' do
     before do
+      # TODO(human): TestSessionとTestのデータクリーンアップ処理を実装してください
+      TestSession.delete_all  # 外部キー制約を考慮してTestSessionを先に削除
       Test.delete_all  # テストデータをクリア
       @test1 = Test.create!(year: "第58回", created_at: 1.day.ago)
       @test2 = Test.create!(year: "第57回", created_at: 2.days.ago)
@@ -42,7 +49,10 @@ RSpec.describe Test, type: :model do
   end
   
   describe '基本機能' do
-    before { Test.delete_all }
+    before do
+      TestSession.delete_all  # 外部キー制約を考慮してTestSessionを先に削除
+      Test.delete_all
+    end
     
     it '有効な属性でテストを作成できる' do
       test = Test.new(year: "第58回")

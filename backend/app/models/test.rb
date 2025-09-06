@@ -1,8 +1,9 @@
 class Test < ApplicationRecord
   validates :year, presence: true, uniqueness: true
   
+  has_many :test_sessions, dependent: :destroy
+  
   # Associations with models to be implemented later
-  # has_many :test_sessions, dependent: :destroy
   # has_many :questions, through: :test_sessions
   # has_many :examinations, dependent: :destroy
   # has_one :pass_mark, dependent: :destroy
