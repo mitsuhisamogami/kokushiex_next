@@ -60,6 +60,8 @@ RSpec.describe Question, type: :model do
     describe 'question_numberの一意性（test_session_idスコープ）' do
       before do
         # 外部キー制約を考慮して、子テーブルから順に削除
+        QuestionTag.delete_all
+        PassMark.delete_all
         Choice.delete_all
         Question.delete_all
         TestSession.delete_all
@@ -87,6 +89,8 @@ RSpec.describe Question, type: :model do
   describe 'スコープ' do
     before do
       # 外部キー制約を考慮して、子テーブルから順に削除
+      QuestionTag.delete_all
+      PassMark.delete_all
       Choice.delete_all
       Question.delete_all
       TestSession.delete_all

@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Tag, type: :model do
   describe 'バリデーション' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      QuestionTag.delete_all
+      PassMark.delete_all
       Tag.delete_all
     end
 
@@ -50,6 +53,9 @@ RSpec.describe Tag, type: :model do
 
   describe 'スコープ' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      QuestionTag.delete_all
+      PassMark.delete_all
       Tag.delete_all
       # 主要カテゴリ (id: 1-3)
       @major1 = Tag.create!(id: 1, name: "基礎医学")
@@ -114,6 +120,9 @@ RSpec.describe Tag, type: :model do
 
   describe '基本機能' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      QuestionTag.delete_all
+      PassMark.delete_all
       Tag.delete_all
     end
 
