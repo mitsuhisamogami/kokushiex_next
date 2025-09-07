@@ -8,12 +8,11 @@ RSpec.describe TestSession, type: :model do
       expect(association.options[:optional]).to be_falsey
     end
 
-    # TODO: Questionモデル実装時にコメントを解除
-    # it 'Questionモデルを複数持つ（依存削除あり）' do
-    #   association = TestSession.reflect_on_association(:questions)
-    #   expect(association.macro).to eq(:has_many)
-    #   expect(association.options[:dependent]).to eq(:destroy)
-    # end
+    it 'Questionモデルを複数持つ（依存削除あり）' do
+      association = TestSession.reflect_on_association(:questions)
+      expect(association.macro).to eq(:has_many)
+      expect(association.options[:dependent]).to eq(:destroy)
+    end
   end
 
   describe 'バリデーション' do
@@ -31,10 +30,13 @@ RSpec.describe TestSession, type: :model do
 
     describe 'session_typeの一意性（test_idスコープ）' do
       before do
+        # 外部キー制約を考慮して、子テーブルから順に削除
+        Choice.delete_all
+        Question.delete_all
         TestSession.delete_all
         Test.delete_all
       end
-      
+
       let(:test) { create(:test) }
       let!(:morning_session) { create(:test_session, test: test, session_type: 'morning') }
 
@@ -59,10 +61,13 @@ RSpec.describe TestSession, type: :model do
 
   describe 'スコープ' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      Choice.delete_all
+      Question.delete_all
       TestSession.delete_all
       Test.delete_all
     end
-    
+
     let(:test) { create(:test) }
     let!(:morning_session) { create(:test_session, :morning, test: test) }
     let!(:afternoon_session) { create(:test_session, :afternoon, test: test) }

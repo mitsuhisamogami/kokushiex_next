@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_06_135920) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_07_010914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,31 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_06_135920) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.text "content", null: false
+    t.integer "option_number", null: false
+    t.boolean "is_correct", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id", "option_number"], name: "index_choices_on_question_id_and_option_number", unique: true
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.bigint "test_session_id", null: false
+    t.text "content", null: false
+    t.integer "question_number", null: false
+    t.integer "correct_choice_id"
+    t.string "category"
+    t.text "explanation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_url"
+    t.index ["test_session_id", "question_number"], name: "index_questions_on_test_session_id_and_question_number", unique: true
+    t.index ["test_session_id"], name: "index_questions_on_test_session_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -77,5 +102,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_06_135920) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "choices", "questions"
+  add_foreign_key "questions", "test_sessions"
   add_foreign_key "test_sessions", "tests"
 end

@@ -19,9 +19,9 @@ tests = [
 tests.each do |test_attrs|
   test = Test.find_or_create_by!(year: test_attrs[:year])
   puts "  Created/Found Test: #{test.year}"
-  
+
   # 各テストに午前・午後のセッションを作成
-  ["morning", "afternoon"].each do |session_type|
+  [ "morning", "afternoon" ].each do |session_type|
     name = session_type == "morning" ? "午前" : "午後"
     session = TestSession.find_or_create_by!(
       test: test,

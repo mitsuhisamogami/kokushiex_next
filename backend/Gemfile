@@ -42,7 +42,7 @@ group :development, :test do
   # RSpec for testing
   gem "rspec-rails", "~> 6.0"
   gem "factory_bot_rails"
-  
+
   # Seed data management
   gem "seed-fu", "~> 2.3"
 end

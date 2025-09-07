@@ -24,5 +24,5 @@ Tag.seed(:id, [
   { id: 23, name: '脊髄損傷' },
   { id: 24, name: '補装具療法' },
   { id: 25, name: 'ADL' },
-  { id: 26, name: '理学療法概論' },
+  { id: 26, name: '理学療法概論' }
 ])

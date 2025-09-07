@@ -4,7 +4,7 @@ class CreateTests < ActiveRecord::Migration[7.2]
       t.string :year, null: false
       t.timestamps
     end
-    
+
     add_index :tests, :year, unique: true
   end
 end
