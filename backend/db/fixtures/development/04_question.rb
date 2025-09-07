@@ -1,5 +1,5 @@
 Question.seed(:id, [
-  # 58回AM
+    # 58回AM
     { id: 1, test_session_id: 1, question_number: 1,
       content: 'Danielsらの徒手筋力テストで股関節外転の段階3の測定をする際、図のような代償がみられた。代償動作を生じさせている筋はどれか。2つ選べ。',
       image_url: 'images/question_58a1.png' },
@@ -34,121 +34,121 @@ Question.seed(:id, [
       content: '頸髄損傷者の起き上がり動作を図に示す。Zancolli の四肢麻痺上肢機能分類における最も上位の機能残存レベルはどれか。',
       image_url: 'images/question_58a11.png' },
     { id: 12, test_session_id: 1, question_number: 12,
-      content: '5歳6か月の男児。脳性麻痺。歩行補助具を用いず屋外歩行が可能であるが、階段昇降時は手すりを必要とする。GMFCSのレベルはどれか。',
+      content: '5歳6か月の男児。脳性麻痺。歩行補助具を用いず屋外歩行が可能であるが、階段昇降時は手すりを必要とする。GMFCSのレベルはどれか。'
     },
     { id: 13, test_session_id: 1, question_number: 13,
-      content: '80歳の男性。両膝痛のため、自宅内で自走用標準型車椅子を使用することとなったが、廊下幅が狭く、方向転換ができないと相談があった。現在使用している車椅子で 180 度方向転換が可能となる最小の廊下幅は何 cm か。ただし、使用する車椅子は全幅70cm、全長120cmとする。',
+      content: '80歳の男性。両膝痛のため、自宅内で自走用標準型車椅子を使用することとなったが、廊下幅が狭く、方向転換ができないと相談があった。現在使用している車椅子で 180 度方向転換が可能となる最小の廊下幅は何 cm か。ただし、使用する車椅子は全幅70cm、全長120cmとする。'
     },
     { id: 14, test_session_id: 1, question_number: 14,
-      content: '42歳の女性。3か月前に手足がしびれるようになり、1か月前から手足の脱力を自覚した。慢性炎症性脱髄性多発ニューロパチーと診断され、ステロイド療法が開始された。筋電図検査所見として正しいのはどれか。',
+      content: '42歳の女性。3か月前に手足がしびれるようになり、1か月前から手足の脱力を自覚した。慢性炎症性脱髄性多発ニューロパチーと診断され、ステロイド療法が開始された。筋電図検査所見として正しいのはどれか。'
     },
     { id: 15, test_session_id: 1, question_number: 15,
-    content: '67 歳の男性。Parkinson 病。発症後5年経過。Hoehn&Yahrの重症度分類ステージⅢ。四肢に中等度の筋強剛を認めるが、筋力や関節可動域に明らかな問題はない。歩行場面では、開始後しばらくして小刻み歩行で小走りとなり、会話しながらだとそれが顕著となる。腰掛けるために椅子に近づくと、すくみ足がみられる。この患者の歩行障害への対応で適切なのはどれか。',
+    content: '67 歳の男性。Parkinson 病。発症後5年経過。Hoehn&Yahrの重症度分類ステージⅢ。四肢に中等度の筋強剛を認めるが、筋力や関節可動域に明らかな問題はない。歩行場面では、開始後しばらくして小刻み歩行で小走りとなり、会話しながらだとそれが顕著となる。腰掛けるために椅子に近づくと、すくみ足がみられる。この患者の歩行障害への対応で適切なのはどれか。'
     },
     { id: 16, test_session_id: 1, question_number: 16,
-    content: '80 歳の女性。左片麻痺。夫と自宅で 2 人暮らし。ベッドから車椅子への移乗は夫に手を添えてもらう程度で可能だが、車椅子からベッドへの移乗では立ち上がる 際に腰を引き上げてもらう。FIM の移乗動作は何点か。',
+    content: '80 歳の女性。左片麻痺。夫と自宅で 2 人暮らし。ベッドから車椅子への移乗は夫に手を添えてもらう程度で可能だが、車椅子からベッドへの移乗では立ち上がる 際に腰を引き上げてもらう。FIM の移乗動作は何点か。'
     },
     { id: 17, test_session_id: 1, question_number: 17,
-    content: '75 歳の男性。 2 型糖尿病でインスリン療法中。腎症、高血圧症および増殖前網膜症を合併しており、週3回血液透析と理学療法のため外来通院している。運動療法で正しいのはどれか',
+    content: '75 歳の男性。 2 型糖尿病でインスリン療法中。腎症、高血圧症および増殖前網膜症を合併しており、週3回血液透析と理学療法のため外来通院している。運動療法で正しいのはどれか'
     },
     { id: 18, test_session_id: 1, question_number: 18,
-    content: '78 歳の男性。COPD によるII型呼吸不全。安静時および運動時に 1 L/分の在宅 酸素療法を導入している。理学療法士による患者指導として正しいのはどれか。',
+    content: '78 歳の男性。COPD によるII型呼吸不全。安静時および運動時に 1 L/分の在宅 酸素療法を導入している。理学療法士による患者指導として正しいのはどれか。'
     },
     { id: 19, test_session_id: 1, question_number: 19,
-    content: '68 歳の女性。NYHA心機能分類classⅢの僧帽弁閉鎖不全症に対して経皮的僧 帽弁形成術を受け、術後経過良好で退院することになった。退院時の運動機能評価として適切なのはどれか。',
+    content: '68 歳の女性。NYHA心機能分類classⅢの僧帽弁閉鎖不全症に対して経皮的僧 帽弁形成術を受け、術後経過良好で退院することになった。退院時の運動機能評価として適切なのはどれか。'
     },
     { id: 20, test_session_id: 1, question_number: 20,
-    content: '74 歳の女性。変形性膝関節症に対して人工膝関節全置換術が行われた。術後に使用する CPM 装置で正しいのはどれか',
+    content: '74 歳の女性。変形性膝関節症に対して人工膝関節全置換術が行われた。術後に使用する CPM 装置で正しいのはどれか'
     },
     { id: 21, test_session_id: 1, question_number: 21,
-    content: 'ICF の評価点で正しいのはどれか。',
+    content: 'ICF の評価点で正しいのはどれか。'
     },
     { id: 22, test_session_id: 1, question_number: 22,
-    content: '理学療法実施時のインフォームドコンセントで適切なのはどれか。',
+    content: '理学療法実施時のインフォームドコンセントで適切なのはどれか。'
     },
     { id: 23, test_session_id: 1, question_number: 23,
-    content: '観察的研究を研究デザインとするのはどれか。2つ選べ。',
+    content: '観察的研究を研究デザインとするのはどれか。2つ選べ。'
     },
     { id: 24, test_session_id: 1, question_number: 24,
-      content: 'IADL に含まれるのはどれか.',
+      content: 'IADL に含まれるのはどれか.'
     },
     { id: 25, test_session_id: 1, question_number: 25,
-      content: '厚生労働省「健康づくりのための身体活動基準 2013」で、強度が 4 METs 以上と なる運動の例はどれか.',
+      content: '厚生労働省「健康づくりのための身体活動基準 2013」で、強度が 4 METs 以上と なる運動の例はどれか.'
     },
     { id: 26, test_session_id: 1, question_number: 26,
-      content: '筋収縮で正しいのはどれか.',
+      content: '筋収縮で正しいのはどれか.'
     },
     { id: 27, test_session_id: 1, question_number: 27,
-      content: '感覚神経のみの脳神経はどれか。2つ選べ.',
+      content: '感覚神経のみの脳神経はどれか。2つ選べ.'
     },
     { id: 28, test_session_id: 1, question_number: 28,
-      content: '関節可動域測定法(日本整形外科学会、日本リハビリテーション医学会基準によ る)で測定する運動方向と移動軸の組合せで正しいのはどれか.',
+      content: '関節可動域測定法(日本整形外科学会、日本リハビリテーション医学会基準によ る)で測定する運動方向と移動軸の組合せで正しいのはどれか.'
     },
     { id: 29, test_session_id: 1, question_number: 29,
-      content: '錐体路徴候はどれか.',
+      content: '錐体路徴候はどれか.'
     },
     { id: 30, test_session_id: 1, question_number: 30,
-      content: '足関節内反捻挫後に筋力増強運動を行う下肢の筋で、再発予防に最も有効なのは どれか.',
+      content: '足関節内反捻挫後に筋力増強運動を行う下肢の筋で、再発予防に最も有効なのは どれか.'
     },
     { id: 31, test_session_id: 1, question_number: 31,
-      content: '関節可動域測定法(日本整形外科学会、日本リハビリテーション医学会基準による)で、足・足部の参考可動域角度が 30°である運動方向はどれか.',
+      content: '関節可動域測定法(日本整形外科学会、日本リハビリテーション医学会基準による)で、足・足部の参考可動域角度が 30°である運動方向はどれか.'
     },
     { id: 32, test_session_id: 1, question_number: 32,
-      content: '脊髄小脳変性症の運動失調を評価するのはどれか.',
+      content: '脊髄小脳変性症の運動失調を評価するのはどれか.'
     },
     { id: 33, test_session_id: 1, question_number: 33,
-      content: '腱板損傷の検査で正しいのはどれか.',
+      content: '腱板損傷の検査で正しいのはどれか.'
     },
     { id: 34, test_session_id: 1, question_number: 34,
-      content: '静的立位で下腿義足の足部外側が床から浮き上がった。原因はどれか.',
+      content: '静的立位で下腿義足の足部外側が床から浮き上がった。原因はどれか.'
     },
     { id: 35, test_session_id: 1, question_number: 35,
-      content: '脊髄損傷で異所性化骨の好発部位はどれか.',
+      content: '脊髄損傷で異所性化骨の好発部位はどれか.'
     },
     { id: 36, test_session_id: 1, question_number: 36,
-      content: '2010 年に定められたアメリカリウマチ学会とヨーロッパリウマチ学会との合同による関節リウマチ分類基準に含まれないのはどれか.',
+      content: '2010 年に定められたアメリカリウマチ学会とヨーロッパリウマチ学会との合同による関節リウマチ分類基準に含まれないのはどれか.'
     },
     { id: 37, test_session_id: 1, question_number: 37,
-      content: '胸郭出口症候群で陽性となる検査はどれか.',
+      content: '胸郭出口症候群で陽性となる検査はどれか.'
     },
     { id: 38, test_session_id: 1, question_number: 38,
-      content: '筋力増強運動で正しいのはどれか.',
+      content: '筋力増強運動で正しいのはどれか.'
     },
     { id: 39, test_session_id: 1, question_number: 39,
-      content: '健常者に自転車エルゴメータを用いて中等度の運動負荷を20分間行った。運動開始前と比べて低下するのはどれか.',
+      content: '健常者に自転車エルゴメータを用いて中等度の運動負荷を20分間行った。運動開始前と比べて低下するのはどれか.'
     },
     { id: 40, test_session_id: 1, question_number: 40,
-      content: '手背に生じた慢性期の熱傷後瘢痕拘縮に対する理学療法として正しいのはどれか。2つ選べ.',
+      content: '手背に生じた慢性期の熱傷後瘢痕拘縮に対する理学療法として正しいのはどれか。2つ選べ.'
     },
     { id: 41, test_session_id: 1, question_number: 41,
-      content: '腹圧性尿失禁で正しいのはどれか.',
+      content: '腹圧性尿失禁で正しいのはどれか.'
     },
     { id: 42, test_session_id: 1, question_number: 42,
-      content: '摂食嚥下障害の病態と 手技の組合せで正しいのはどれか.',
+      content: '摂食嚥下障害の病態と 手技の組合せで正しいのはどれか.'
     },
     { id: 43, test_session_id: 1, question_number: 43,
-      content: 'アキレス腱周囲炎で正しいのはどれか.',
+      content: 'アキレス腱周囲炎で正しいのはどれか.'
     },
     { id: 44, test_session_id: 1, question_number: 44,
       content: '呼吸性アシドーシスはどれか.',
       image_url: 'images/question_58a44.png' },
     { id: 45, test_session_id: 1, question_number: 45,
-      content: 'Guillain-Barré 症候群の治療で正しいのはどれか.',
+      content: 'Guillain-Barré 症候群の治療で正しいのはどれか.'
     },
     { id: 46, test_session_id: 1, question_number: 46,
-      content: 'CBRマトリクスの5つの主要領域に含まれないのはどれか.',
+      content: 'CBRマトリクスの5つの主要領域に含まれないのはどれか.'
     },
     { id: 47, test_session_id: 1, question_number: 47,
-      content: '普通型電動車椅子の装置で正しいのはどれか.',
+      content: '普通型電動車椅子の装置で正しいのはどれか.'
     },
     { id: 48, test_session_id: 1, question_number: 48,
-      content: '介護保険制度の福祉用具貸与品目はどれか.',
+      content: '介護保険制度の福祉用具貸与品目はどれか.'
     },
     { id: 49, test_session_id: 1, question_number: 49,
-      content: '安全対策に関する理論であるHeinrichの法則で正しいのはどれか.',
+      content: '安全対策に関する理論であるHeinrichの法則で正しいのはどれか.'
     },
     { id: 50, test_session_id: 1, question_number: 50,
-      content: 'SOAPで正しいのはどれか.',
+      content: 'SOAPで正しいのはどれか.'
     },
     { id: 51, test_session_id: 1, question_number: 51,
       content: '42歳の女性。3か月前に手足がしびれるようになり、1か月前から手足の脱力を自覚した。慢性炎症性脱髄性多発ニューロパチーと診断され、ステロイド療法が開始された.' },
@@ -251,7 +251,7 @@ Question.seed(:id, [
       content: '統合失調症患者の健康関連 QOL の測定に用いることができるのはどれか.' },
     { id: 100, test_session_id: 1, question_number: 100,
       content: '強迫性障害で正しいのはどれか.' },
-  # 58回PM
+    # 58回PM
     { id: 101, test_session_id: 2, question_number: 1,
       content: 'Daniels らの徒手筋力テストにおける肩甲下筋のテストで正しいのはどれか。',
       image_url: 'images/question_58p1.png' },
@@ -360,7 +360,7 @@ Question.seed(:id, [
     { id: 146, test_session_id: 2, question_number: 46,
       content: '1950年代、北欧での知的障害者の人権改善運動の発端となった取り組みはどれか.' },
     { id: 147, test_session_id: 2, question_number: 47,
-      content: '臨床実習中の守秘義務で正しいのはどれか。2つ選べ.' }, 
+      content: '臨床実習中の守秘義務で正しいのはどれか。2つ選べ.' },
     { id: 148, test_session_id: 2, question_number: 48,
       content: '介護予防事業の基本チェックリスト質問項目でないのはどれか.' },
     { id: 149, test_session_id: 2, question_number: 49,
@@ -468,6 +468,5 @@ Question.seed(:id, [
     { id: 199, test_session_id: 2, question_number: 99,
       content: '鉄欠乏性貧血の患者にみられやすい睡眠・覚醒障害はどれか.' },
     { id: 200, test_session_id: 2, question_number: 100,
-      content: '神経性無食欲症で生じやすいのはどれか.' },
+      content: '神経性無食欲症で生じやすいのはどれか.' }
   ])
-  

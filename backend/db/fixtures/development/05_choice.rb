@@ -370,7 +370,7 @@ Choice.seed(:id, [
   { id: 308, question_id: 62, content: '運動出力はα運動ニューロンを介する。', is_correct: false, option_number: 3 },
   { id: 309, question_id: 62, content: 'Renshaw 細胞はα運動ニューロンから入力を受ける。', is_correct: false, option_number: 4 },
   { id: 310, question_id: 62, content: 'γ運動ニューロンの興奮により深部腱反射は減弱する。', is_correct: true, option_number: 5 },
-  #　不適切問題
+  # 　不適切問題
   { id: 311, question_id: 63, content: 'α アミラーゼはデンプンをデキストリンに分解する。', is_correct: true, option_number: 1 },
   { id: 312, question_id: 63, content: 'トリプシンは蛋白質をポリペプチドに分解する。', is_correct: true, option_number: 2 },
   { id: 313, question_id: 63, content: 'ペプシンはトリグリセリドを脂肪酸に分解する。', is_correct: false, option_number: 3 },
@@ -551,7 +551,7 @@ Choice.seed(:id, [
   { id: 459, question_id: 92, content: '血小板増加', is_correct: false, option_number: 4 },
   { id: 460, question_id: 92, content: '高アルブミン血症', is_correct: false, option_number: 5 },
 
-  { id: 461, question_id: 93, content: 'ビタミン A ーー 舌炎', is_correct: false, option_number: 1},
+  { id: 461, question_id: 93, content: 'ビタミン A ーー 舌炎', is_correct: false, option_number: 1 },
   { id: 462, question_id: 93, content: 'ビタミン B1 ーー 皮下出血', is_correct: false, option_number: 2 },
   { id: 463, question_id: 93, content: 'ビタミン C ーー 末梢神経障害', is_correct: false, option_number: 3 },
   { id: 464, question_id: 93, content: 'ビタミン D ーー 骨粗鬆症', is_correct: true, option_number: 4 },
@@ -850,7 +850,7 @@ Choice.seed(:id, [
   { id: 708, question_id: 142, content: '急性期の疼痛に対して体操療法を行う。', is_correct: false, option_number: 3 },
   { id: 709, question_id: 142, content: '進行性の筋力低下があれば手術療法を考慮する。', is_correct: true, option_number: 4 },
   { id: 710, question_id: 142, content: '腰への負担を減らすために数か月間のベッド上安静とする。', is_correct: false, option_number: 5 },
-# 不適切問題
+  # 不適切問題
   { id: 711, question_id: 143, content: '干渉波療法', is_correct: false, option_number: 1 },
   { id: 712, question_id: 143, content: '筋力増強運動', is_correct: false, option_number: 2 },
   { id: 713, question_id: 143, content: '振動刺激療法', is_correct: false, option_number: 3 },
@@ -900,7 +900,7 @@ Choice.seed(:id, [
   { id: 750, question_id: 150, content: 'VAS ーー 認知機能', is_correct: false, option_number: 5 },
 
   { id: 751, question_id: 151, content: '短骨には髄腔がある。', is_correct: false, option_number: 1 },
-  { id: 752, question_id: 151, content: '黄色骨髄は造血機能を持つ。', is_correct: false, option_number:2  },
+  { id: 752, question_id: 151, content: '黄色骨髄は造血機能を持つ。', is_correct: false, option_number: 2  },
   { id: 753, question_id: 151, content: '海綿骨にはHavers管がある。', is_correct: false, option_number: 3 },
   { id: 754, question_id: 151, content: '骨芽細胞は骨吸収に関与する。', is_correct: false, option_number: 4 },
   { id: 755, question_id: 151, content: '皮質骨表面は骨膜で覆われている。', is_correct: true, option_number: 5 },
@@ -970,7 +970,7 @@ Choice.seed(:id, [
   { id: 808, question_id: 162, content: 'バソプレシン', is_correct: false, option_number: 3 },
   { id: 809, question_id: 162, content: 'プロラクチン', is_correct: true, option_number: 4 },
   { id: 810, question_id: 162, content: 'アルドステロン', is_correct: false, option_number: 5 },
-  #　不適切問題
+  # 　不適切問題
   { id: 811, question_id: 163, content: '明順応には 20 分程度かかる。', is_correct: false, option_number: 1 },
   { id: 812, question_id: 163, content: '視神経乳頭は視覚受容器を欠く。', is_correct: true, option_number: 2 },
   { id: 813, question_id: 163, content: 'ビタミン C 欠乏で夜盲症となる。', is_correct: false, option_number: 3 },
@@ -1016,7 +1016,7 @@ Choice.seed(:id, [
   { id: 846, question_id: 170, content: '棘下筋', is_correct: false, option_number: 1 },
   { id: 847, question_id: 170, content: '広背筋', is_correct: false, option_number: 2 },
   { id: 848, question_id: 170, content: '小円筋', is_correct: false, option_number: 3 },
-  { id: 849, question_id: 170, content: '前鋸筋', is_correct: true, option_number:  4},
+  { id: 849, question_id: 170, content: '前鋸筋', is_correct: true, option_number:  4 },
   { id: 850, question_id: 170, content: '菱形筋', is_correct: false, option_number: 5 },
 
   { id: 851, question_id: 171, content: '肘筋', is_correct: false, option_number: 1 },
