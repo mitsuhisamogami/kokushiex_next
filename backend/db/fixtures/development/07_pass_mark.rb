@@ -14,5 +14,5 @@ PassMark.seed(:id, [
   # http://masamijk.net/school-info-ptot50.html
   { id: 9, test_id: 9, required_score: 168, required_practical_score: 43, total_score: 280 },
   # http://masamijk.net/seminar/fu-se-493.html
-  { id: 10, test_id: 10, required_score: 167, required_practical_score: 41, total_score: 277 },
+  { id: 10, test_id: 10, required_score: 167, required_practical_score: 41, total_score: 277 }
 ])

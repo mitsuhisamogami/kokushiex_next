@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     get "health", to: "health#check"
+
+    # Authentication routes
+    post "auth/login", to: "auth#login"
+    post "auth/verify", to: "auth#verify"
   end
 
   # Defines the root path route ("/")
