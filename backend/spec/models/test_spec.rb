@@ -6,7 +6,7 @@ RSpec.describe Test, type: :model do
       TestSession.delete_all
       Test.delete_all
     end
-    
+
     it '年度が必須であること' do
       test = Test.new
       expect(test).not_to be_valid
@@ -20,7 +20,7 @@ RSpec.describe Test, type: :model do
       expect(duplicate_test.errors[:year]).to include("has already been taken")
     end
   end
-  
+
   describe 'スコープ' do
     before do
       # TODO(human): TestSessionとTestのデータクリーンアップ処理を実装してください
@@ -30,35 +30,35 @@ RSpec.describe Test, type: :model do
       @test2 = Test.create!(year: "第57回", created_at: 2.days.ago)
       @test3 = Test.create!(year: "第56回", created_at: 3.days.ago)
     end
-    
+
     describe '.recent' do
       it '作成日時の降順でテストを返す' do
-        expect(Test.recent.pluck(:year)).to eq(["第58回", "第57回", "第56回"])
+        expect(Test.recent.pluck(:year)).to eq([ "第58回", "第57回", "第56回" ])
       end
     end
-    
+
     describe '.by_year' do
       it '指定した年度のテストを返す' do
         expect(Test.by_year("第58回").first).to eq(@test1)
       end
-      
+
       it '該当する年度がない場合は空の配列を返す' do
         expect(Test.by_year("第59回")).to be_empty
       end
     end
   end
-  
+
   describe '基本機能' do
     before do
       TestSession.delete_all  # 外部キー制約を考慮してTestSessionを先に削除
       Test.delete_all
     end
-    
+
     it '有効な属性でテストを作成できる' do
       test = Test.new(year: "第58回")
       expect(test).to be_valid
     end
-    
+
     it 'テストデータを保存できる' do
       test = Test.create!(year: "第58回")
       expect(test.persisted?).to be true
