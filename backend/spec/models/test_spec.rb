@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Test, type: :model do
   describe 'バリデーション' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      Choice.delete_all
+      Question.delete_all
       TestSession.delete_all
       Test.delete_all
     end
@@ -23,9 +26,11 @@ RSpec.describe Test, type: :model do
 
   describe 'スコープ' do
     before do
-      # TODO(human): TestSessionとTestのデータクリーンアップ処理を実装してください
-      TestSession.delete_all  # 外部キー制約を考慮してTestSessionを先に削除
-      Test.delete_all  # テストデータをクリア
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      Choice.delete_all
+      Question.delete_all
+      TestSession.delete_all
+      Test.delete_all
       @test1 = Test.create!(year: "第58回", created_at: 1.day.ago)
       @test2 = Test.create!(year: "第57回", created_at: 2.days.ago)
       @test3 = Test.create!(year: "第56回", created_at: 3.days.ago)
@@ -50,7 +55,10 @@ RSpec.describe Test, type: :model do
 
   describe '基本機能' do
     before do
-      TestSession.delete_all  # 外部キー制約を考慮してTestSessionを先に削除
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      Choice.delete_all
+      Question.delete_all
+      TestSession.delete_all
       Test.delete_all
     end
 

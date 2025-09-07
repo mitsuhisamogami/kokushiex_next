@@ -30,6 +30,9 @@ RSpec.describe TestSession, type: :model do
 
     describe 'session_typeの一意性（test_idスコープ）' do
       before do
+        # 外部キー制約を考慮して、子テーブルから順に削除
+        Choice.delete_all
+        Question.delete_all
         TestSession.delete_all
         Test.delete_all
       end
@@ -58,6 +61,9 @@ RSpec.describe TestSession, type: :model do
 
   describe 'スコープ' do
     before do
+      # 外部キー制約を考慮して、子テーブルから順に削除
+      Choice.delete_all
+      Question.delete_all
       TestSession.delete_all
       Test.delete_all
     end
