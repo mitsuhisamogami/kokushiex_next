@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_07_010914) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_07_020326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_07_010914) do
     t.datetime "updated_at", null: false
     t.index ["question_id", "option_number"], name: "index_choices_on_question_id_and_option_number", unique: true
     t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
+  create_table "question_tags", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id", "tag_id"], name: "index_question_tags_on_question_id_and_tag_id", unique: true
+    t.index ["question_id"], name: "index_question_tags_on_question_id"
+    t.index ["tag_id"], name: "index_question_tags_on_tag_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -103,6 +113,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_07_010914) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "questions"
+  add_foreign_key "question_tags", "questions"
+  add_foreign_key "question_tags", "tags"
   add_foreign_key "questions", "test_sessions"
   add_foreign_key "test_sessions", "tests"
 end

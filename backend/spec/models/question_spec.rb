@@ -18,6 +18,18 @@ RSpec.describe Question, type: :model do
       question = Question.new
       expect(question).to respond_to(:image)
     end
+
+    it 'QuestionTagモデルを複数持つ（依存削除あり）' do
+      association = Question.reflect_on_association(:question_tags)
+      expect(association.macro).to eq(:has_many)
+      expect(association.options[:dependent]).to eq(:destroy)
+    end
+
+    it 'Tagモデルと多対多の関係を持つ（through question_tags）' do
+      association = Question.reflect_on_association(:tags)
+      expect(association.macro).to eq(:has_many)
+      expect(association.options[:through]).to eq(:question_tags)
+    end
   end
 
   describe 'バリデーション' do

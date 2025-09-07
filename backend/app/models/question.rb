@@ -2,6 +2,8 @@ class Question < ApplicationRecord
   belongs_to :test_session
   has_many :choices, dependent: :destroy
   has_one_attached :image
+  has_many :question_tags, dependent: :destroy
+  has_many :tags, through: :question_tags
 
   validates :content, presence: true
   validates :question_number, presence: true, numericality: { only_integer: true, greater_than: 0 }
