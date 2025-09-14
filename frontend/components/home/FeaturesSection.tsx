@@ -1,4 +1,4 @@
-import { SiBookstack} from 'react-icons/si';
+import { SiBookstack } from "react-icons/si";
 import { FaWifi, FaChartLine } from "react-icons/fa";
 
 export default function FeaturesSection() {
