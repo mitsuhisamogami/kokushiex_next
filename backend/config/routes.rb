@@ -14,8 +14,11 @@ Rails.application.routes.draw do
     get "health", to: "health#check"
 
     # Authentication routes
+    post "auth/register", to: "auth#register"
     post "auth/login", to: "auth#login"
-    post "auth/verify", to: "auth#verify"
+    post "auth/logout", to: "auth#logout"
+    get "auth/me", to: "auth#me"
+    get "auth/verify", to: "auth#verify"  # Phase 1との互換性のため残す
   end
 
   # Defines the root path route ("/")

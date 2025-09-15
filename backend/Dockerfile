@@ -19,8 +19,8 @@ ENV BUNDLE_PATH="/usr/local/bundle"
 # Copy Gemfiles
 COPY Gemfile Gemfile.lock ./
 
-# Install gems
-RUN bundle install
+# Install gems (force reinstall to ensure all gems are installed)
+RUN bundle install --jobs 4 --retry 3
 
 # Copy application code
 COPY . .

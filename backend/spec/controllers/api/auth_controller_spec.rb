@@ -1,91 +1,134 @@
 require 'rails_helper'
 
 RSpec.describe Api::AuthController, type: :controller do
-  describe 'POST #login' do
-    let(:valid_credentials) do
-      {
-        email: 'test@example.com',
-        password: 'password123'
-      }
-    end
-
-    context '有効な認証情報の場合' do
-      it 'JWTトークンを返すこと' do
-        # TODO(human): ユーザー認証のロジックを実装する
-        post :login, params: valid_credentials
-
-        expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
-        expect(json_response['token']).to be_present
-        expect(json_response['user']).to be_present
+  describe 'POST #register' do
+    context 'with valid parameters' do
+      let(:email) { 'newuser@example.com' }
+      let(:valid_params) do
+        {
+          email: email,
+          password: 'password123',
+          password_confirmation: 'password123',
+          name: 'Test User'
+        }
       end
 
-      it '正しいユーザー情報を返すこと' do
-        post :login, params: valid_credentials
-
-        json_response = JSON.parse(response.body)
-        expect(json_response['user']['email']).to eq(valid_credentials[:email])
+      it 'creates a new user' do
+        expect {
+          post :register, params: valid_params
+        }.to change(User, :count).by(1)
       end
-    end
 
-    context '無効な認証情報の場合' do
-      it '401エラーを返すこと' do
-        invalid_credentials = { email: 'test@example.com', password: 'wrong_password' }
-        post :login, params: invalid_credentials
-
-        expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
-        expect(json_response['error']).to be_present
+      it 'returns user data and token' do
+        post :register, params: valid_params
+        expect(response).to have_http_status(:created)
+        json = JSON.parse(response.body)
+        expect(json).to have_key('user')
+        expect(json).to have_key('token')
+        expect(json['user']['email']).to eq(email)
+        expect(json['user']['is_guest']).to be_falsey
       end
     end
 
-    context '認証情報が不足している場合' do
-      it '400エラーを返すこと' do
-        incomplete_credentials = { email: 'test@example.com' }
-        post :login, params: incomplete_credentials
-
-        expect(response).to have_http_status(:bad_request)
+    context 'with invalid parameters' do
+      it 'returns validation errors' do
+        post :register, params: { email: 'invalid', password: '123' }
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body)
+        expect(json).to have_key('errors')
       end
     end
   end
 
-  describe 'POST #verify' do
-    let(:valid_token) { JwtService.encode({ user_id: 1 }) }
+  describe 'POST #login' do
+    let!(:user) { create(:user, password: 'password123', is_guest: false) }
 
-    context '有効なトークンの場合' do
-      before do
-        request.headers['Authorization'] = "Bearer #{valid_token}"
-      end
-
-      it 'ユーザー情報を返すこと' do
-        post :verify
-
+    context 'with valid credentials' do
+      it 'returns user data and token' do
+        post :login, params: { email: user.email, password: 'password123' }
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
-        expect(json_response['user']).to be_present
-        expect(json_response['valid']).to be true
+        json = JSON.parse(response.body)
+        expect(json).to have_key('user')
+        expect(json).to have_key('token')
+        expect(json['user']['email']).to eq(user.email)
       end
     end
 
-    context '無効なトークンの場合' do
-      before do
+    context 'with invalid credentials' do
+      it 'returns unauthorized error' do
+        post :login, params: { email: user.email, password: 'wrongpassword' }
+        expect(response).to have_http_status(:unauthorized)
+        json = JSON.parse(response.body)
+        expect(json['error']).to include('Invalid email or password')
+      end
+    end
+  end
+
+  describe 'GET #me' do
+    let!(:user) { create(:user, is_guest: false) }
+    let(:token) { controller.send(:encode_jwt, { user_id: user.id }) }
+
+    context 'with valid token' do
+      it 'returns current user data' do
+        request.headers['Authorization'] = "Bearer #{token}"
+        get :me
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['user']['email']).to eq(user.email)
+      end
+    end
+
+    context 'without token' do
+      it 'returns unauthorized error' do
+        get :me
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'with invalid token' do
+      it 'returns unauthorized error' do
         request.headers['Authorization'] = 'Bearer invalid_token'
-      end
-
-      it '401エラーを返すこと' do
-        post :verify
-
+        get :me
         expect(response).to have_http_status(:unauthorized)
-        json_response = JSON.parse(response.body)
-        expect(json_response['valid']).to be false
+      end
+    end
+  end
+
+  describe 'POST #logout' do
+    let!(:user) { create(:user, is_guest: false) }
+    let(:token) { controller.send(:encode_jwt, { user_id: user.id }) }
+
+    it 'returns success message' do
+      request.headers['Authorization'] = "Bearer #{token}"
+      post :logout
+      expect(response).to have_http_status(:ok)
+      json = JSON.parse(response.body)
+      expect(json['message']).to include('Logged out successfully')
+    end
+  end
+
+  describe 'GET #verify' do
+    let!(:user) { create(:user, is_guest: false) }
+    let(:token) { controller.send(:encode_jwt, { user_id: user.id }) }
+
+    context 'with valid token' do
+      it 'returns user data and valid status' do
+        request.headers['Authorization'] = "Bearer #{token}"
+        get :verify
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['valid']).to be true
+        expect(json['user']['email']).to eq(user.email)
       end
     end
 
-    context 'トークンが提供されていない場合' do
-      it '401エラーを返すこと' do
-        post :verify
-
+    context 'with invalid token' do
+      it 'returns invalid status' do
+        request.headers['Authorization'] = 'Bearer invalid_token'
+        get :verify
         expect(response).to have_http_status(:unauthorized)
+        json = JSON.parse(response.body)
+        expect(json['valid']).to be false
       end
     end
   end
