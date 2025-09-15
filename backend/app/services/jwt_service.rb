@@ -2,11 +2,8 @@ class JwtService
   EXPIRATION_TIME = 24.hours
 
   def self.encode(payload)
-    # TODO(human): JWTトークンをエンコードする実装を追加
-    # payload に expiration 時刻を追加し、JWT.encode を使用してトークンを生成する
-
-    # Rails.application.credentials.secret_key_base または 'test_secret_key' を秘密鍵として使用
-    payload_with_exp = payload.merge(exp: EXPIRATION_TIME.from_now.to_i)
+    # expが既に設定されている場合はそれを使用、なければデフォルトの24時間を設定
+    payload_with_exp = payload[:exp] ? payload : payload.merge(exp: EXPIRATION_TIME.from_now.to_i)
     JWT.encode(payload_with_exp, secret_key, "HS256")
   end
 
