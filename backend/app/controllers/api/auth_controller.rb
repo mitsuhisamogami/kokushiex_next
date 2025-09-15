@@ -1,51 +1,86 @@
 module Api
   class AuthController < ApplicationController
-    # Phase 1では基本的な認証インフラのみ実装（実際のユーザー認証は後のフェーズ）
+    include JwtAuthenticatable
+    skip_before_action :authenticate_request, only: [ :register, :login, :verify ]
 
-    def login
-      # TODO(human): 認証ロジックを実装
-      # Phase 1では仮のユーザーで動作確認
-      # email/passwordを受け取り、正しければJWTトークンを返す
+    # POST /api/auth/register
+    def register
+      user = User.new(user_params)
+      user.is_guest = false
 
-      # パラメータの存在チェック（400 Bad Request）
-      if params[:email].blank? || params[:password].blank?
-        render json: { error: "Email and password are required" }, status: :bad_request
-        return
-      end
-
-      # 認証チェック（401 Unauthorized）
-      if params[:email] == "test@example.com" && params[:password] == "password123"
-        token = JwtService.encode({ user_id: 1, email: params[:email] })
+      if user.save
+        token = encode_jwt({ user_id: user.id })
         render json: {
-          token: token,
-          user: { id: 1, email: params[:email] }
+          user: user_response(user),
+          token: token
+        }, status: :created
+      else
+        render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
+    # POST /api/auth/login
+    def login
+      user = User.find_by(email: params[:email])
+
+      if user && user.authenticate(params[:password])
+        token = encode_jwt({ user_id: user.id })
+        render json: {
+          user: user_response(user),
+          token: token
         }, status: :ok
       else
         render json: { error: "Invalid email or password" }, status: :unauthorized
       end
     end
 
-    def verify
-      # Authorizationヘッダーのトークンを検証
-      # 有効なら { valid: true, user: {...} } を返す
-      # 無効なら { valid: false } を返す
-      authenticate_request  #
-      # pplicationControllerのメソッドを使用
+    # POST /api/auth/logout
+    def logout
+      # JWTはステートレスなので、クライアント側でトークンを削除してもらう
+      render json: { message: "Logged out successfully" }, status: :ok
+    end
 
-      if @current_user_id
-        render json: {
-          valid: true,
-          user: { id: @current_user_id }
-        }, status: :ok
+    # GET /api/auth/me
+    def me
+      if current_user
+        render json: { user: user_response(current_user) }, status: :ok
       else
+        render json: { error: "Not authenticated" }, status: :unauthorized
+      end
+    end
+
+    # GET /api/auth/verify (Phase 1との互換性のため残す)
+    def verify
+      begin
+        user = decode_jwt
+        if user
+          render json: {
+            valid: true,
+            user: user_response(user)
+          }, status: :ok
+        else
+          render json: { valid: false }, status: :unauthorized
+        end
+      rescue JWT::ExpiredSignature, JWT::DecodeError
         render json: { valid: false }, status: :unauthorized
       end
     end
 
     private
 
-    def login_params
-      params.permit(:email, :password)
+    def user_params
+      params.permit(:email, :password, :password_confirmation, :name)
+    end
+
+    def user_response(user)
+      {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        is_guest: user.is_guest,
+        created_at: user.created_at,
+        updated_at: user.updated_at
+      }
     end
   end
 end

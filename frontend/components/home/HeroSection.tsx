@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function HeroSection() {
   return (
     <div className="bg-slate-900 text-slate-200 min-h-screen">
@@ -20,10 +22,10 @@ export default function HeroSection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <button className="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/25 overflow-hidden">
+            <Link href="/signin" className="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/25 overflow-hidden inline-block text-center">
               <span className="relative z-10">ログイン</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
-            </button>
+            </Link>
             
             <button className="bg-transparent text-blue-400 border-2 border-blue-400 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:bg-blue-400/10 hover:-translate-y-1">
               無料体験開始

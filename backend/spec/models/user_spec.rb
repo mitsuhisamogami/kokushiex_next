@@ -1,32 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before(:each) do
+    User.destroy_all
+  end
+
   describe 'バリデーション' do
     it '有効な属性を持つ場合は有効である' do
       user = User.new(
         email: 'test@example.com',
-        encrypted_password: 'password123',
+        password: 'password123',
         name: 'Test User',
         is_guest: false
       )
       expect(user).to be_valid
     end
 
-    it 'encrypted_passwordがない場合は無効である' do
+    it '通常ユーザーでpassword_digestがない場合は無効である' do
       user = User.new(
         email: 'test@example.com',
         name: 'Test User',
         is_guest: false
       )
       expect(user).not_to be_valid
-      expect(user.errors[:encrypted_password]).to include("can't be blank")
+      expect(user.errors[:password_digest]).to include("can't be blank")
     end
 
-    it 'emailがなくても有効である' do
+    it 'ゲストユーザーの場合emailがなくても有効である' do
       user = User.new(
-        encrypted_password: 'password123',
+        password: 'password123',
         name: 'Test User',
-        is_guest: false
+        is_guest: true
       )
       expect(user).to be_valid
     end
@@ -34,14 +38,14 @@ RSpec.describe User, type: :model do
     it 'emailの一意性を検証する' do
       User.create!(
         email: 'test@example.com',
-        encrypted_password: 'password123',
+        password: 'password123',
         name: 'First User',
         is_guest: false
       )
 
       duplicate_user = User.new(
         email: 'test@example.com',
-        encrypted_password: 'password456',
+        password: 'password456',
         name: 'Second User',
         is_guest: false
       )
@@ -52,13 +56,13 @@ RSpec.describe User, type: :model do
 
     it 'emailがnilの複数ユーザーを許可する' do
       user1 = User.create!(
-        encrypted_password: 'password123',
+        password: 'password123',
         name: 'User 1',
         is_guest: true
       )
 
       user2 = User.new(
-        encrypted_password: 'password456',
+        password: 'password456',
         name: 'User 2',
         is_guest: true
       )
@@ -91,7 +95,7 @@ RSpec.describe User, type: :model do
       guest_user1 = User.create_guest_user
       guest_user2 = User.create_guest_user
 
-      expect(guest_user1.encrypted_password).not_to eq(guest_user2.encrypted_password)
+      expect(guest_user1.password_digest).not_to eq(guest_user2.password_digest)
     end
 
     it '有効なゲストユーザーを作成する' do
