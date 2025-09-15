@@ -14,7 +14,7 @@ import { useAuth } from "@/contexts/auth-context";
 // ];
 
 export default function Header() {
-  const { user, loading, logout } = useAuth();
+  const { user, loading, logout, loginAsGuest } = useAuth();
   return (
     <header className="flex flex-wrap p-2 flex-col md:flex-row items-center bg-sky-100 sticky top-0 z-50">
         <div className="flex flex-row items-center gap-2">
@@ -71,7 +71,12 @@ export default function Header() {
               <>
                 <Link href="/signin" className="mr-5 hover:text-orange-300 cursor-pointer ">ログイン</Link>
                 <Link href="/signup" className="mr-5 hover:text-orange-300 cursor-pointer ">新規登録</Link>
-                <Link href="/" className="mr-5 hover:text-orange-300 cursor-pointer ">ゲストログイン</Link>
+                <button
+                  onClick={loginAsGuest}
+                  className="mr-5 hover:text-orange-300 cursor-pointer"
+                >
+                  ゲストログイン
+                </button>
               </>
             )}
         </nav>

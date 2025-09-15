@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     post "auth/logout", to: "auth#logout"
     get "auth/me", to: "auth#me"
     get "auth/verify", to: "auth#verify"  # Phase 1との互換性のため残す
+
+    # Guest user routes
+    post "guest_sessions", to: "guest_sessions#create"
   end
 
   # Defines the root path route ("/")

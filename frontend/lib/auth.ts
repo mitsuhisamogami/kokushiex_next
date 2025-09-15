@@ -14,6 +14,23 @@ export interface AuthResponse {
   token: string;
 }
 
+export interface GuestUserData {
+  id: number;
+  is_guest: boolean;
+  expires_at: string;
+  remaining_seconds: number;
+  remaining_time: string;
+}
+
+export interface GuestAuthResponse {
+  status: string;
+  data: {
+    user: GuestUserData;
+    token: string;
+  };
+  message: string;
+}
+
 export interface AuthError {
   error?: string;
   errors?: string[];
@@ -108,4 +125,20 @@ export async function verifyToken(token: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+export async function createGuestUser(): Promise<GuestAuthResponse> {
+  const response = await fetch(`${API_BASE_URL}/guest_sessions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error: AuthError = await response.json();
+    throw new Error(error.error || error.errors?.join(', ') || 'ゲストユーザー作成に失敗しました');
+  }
+
+  return response.json();
 }
