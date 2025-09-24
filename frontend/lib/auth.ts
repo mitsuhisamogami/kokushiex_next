@@ -40,6 +40,54 @@ export interface AuthError {
 // localStorage or cookieを使用してトークンを管理
 // セキュリティを考慮した実装が必要
 
+import { addCsrfTokenToHeaders, isCsrfError } from './csrf';
+
+const TOKEN_KEY = 'auth_token';
+
+export function storeToken(token: string): void {
+  try {
+    localStorage.setItem(TOKEN_KEY, token);
+  } catch (error) {
+    console.error('Failed to store token:', error);
+  }
+}
+
+export function getToken(): string | null {
+  try {
+    return localStorage.getItem(TOKEN_KEY);
+  } catch (error) {
+    console.error('Failed to get token:', error);
+    return null;
+  }
+}
+
+export function removeToken(): void {
+  try {
+    localStorage.removeItem(TOKEN_KEY);
+  } catch (error) {
+    console.error('Failed to remove token:', error);
+  }
+}
+
+export function isTokenValid(token: string | null): boolean {
+  if (!token) return false;
+
+  try {
+    // JWT トークンの基本的な形式チェック（3つの部分がドットで区切られている）
+    const parts = token.split('.');
+    if (parts.length !== 3) return false;
+
+    // Base64URLデコードしてペイロードの有効期限をチェック
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    return payload.exp && payload.exp > currentTime;
+  } catch (error) {
+    console.error('Token validation error:', error);
+    return false;
+  }
+}
+
 export async function registerUser(
   email: string,
   password: string,
@@ -85,12 +133,22 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
 }
 
 export async function logoutUser(): Promise<void> {
-  await fetch(`${API_BASE_URL}/auth/logout`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const headers = addCsrfTokenToHeaders({
+    'Content-Type': 'application/json',
   });
+
+  const response = await fetch(`${API_BASE_URL}/auth/logout`, {
+    method: 'POST',
+    headers,
+  });
+
+  if (isCsrfError(response)) {
+    throw new Error('CSRF token validation failed. Please refresh the page and try again.');
+  }
+
+  if (!response.ok) {
+    throw new Error('Logout failed');
+  }
 }
 
 export async function getCurrentUser(token: string): Promise<User> {
