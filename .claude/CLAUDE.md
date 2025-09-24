@@ -55,6 +55,7 @@ docker-compose exec backend bundle exec rspec
 - [ ] 機密情報のハードコーディング禁止
 - [ ] 入力値検証とサニタイゼーション
 - [ ] セキュアなセッション管理
+- [ ] セキュリティヘッダーの適用（secure_headers gem使用）
 
 ### 2. コード品質
 - [ ] 単一責任原則（SRP）の遵守
