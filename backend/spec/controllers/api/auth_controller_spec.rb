@@ -97,13 +97,46 @@ RSpec.describe Api::AuthController, type: :controller do
   describe 'POST #logout' do
     let!(:user) { create(:user, is_guest: false) }
     let(:token) { controller.send(:encode_jwt, { user_id: user.id }) }
+    let(:csrf_token) { CsrfTokenService.generate }
 
-    it 'returns success message' do
-      request.headers['Authorization'] = "Bearer #{token}"
-      post :logout
-      expect(response).to have_http_status(:ok)
-      json = JSON.parse(response.body)
-      expect(json['message']).to include('Logged out successfully')
+    context 'with valid CSRF token' do
+      it 'returns success message' do
+        request.headers['Authorization'] = "Bearer #{token}"
+        request.cookies['_csrf_token'] = csrf_token
+        request.headers['X-CSRF-Token'] = csrf_token
+
+        post :logout
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['message']).to include('Logged out successfully')
+      end
+    end
+
+    context 'without CSRF token' do
+      it 'returns 403 forbidden error' do
+        request.headers['Authorization'] = "Bearer #{token}"
+
+        post :logout
+
+        expect(response).to have_http_status(:forbidden)
+        json = JSON.parse(response.body)
+        expect(json['error']).to eq('Invalid CSRF token')
+      end
+    end
+
+    context 'with invalid CSRF token' do
+      it 'returns 403 forbidden error' do
+        request.headers['Authorization'] = "Bearer #{token}"
+        request.cookies['_csrf_token'] = csrf_token
+        request.headers['X-CSRF-Token'] = 'invalid_token'
+
+        post :logout
+
+        expect(response).to have_http_status(:forbidden)
+        json = JSON.parse(response.body)
+        expect(json['error']).to eq('Invalid CSRF token')
+      end
     end
   end
 
