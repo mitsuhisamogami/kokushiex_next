@@ -2,6 +2,7 @@ module Api
   class AuthController < ApplicationController
     include JwtAuthenticatable
     skip_before_action :authenticate_request, only: [ :register, :login, :verify ]
+    skip_before_action :verify_csrf_token, only: [ :register, :login, :verify ]
 
     # POST /api/auth/register
     def register

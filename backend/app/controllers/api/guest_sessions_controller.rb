@@ -1,6 +1,7 @@
 class Api::GuestSessionsController < ApplicationController
   include JwtAuthenticatable
   skip_before_action :authenticate_request, only: [ :create ]
+  skip_before_action :verify_csrf_token, only: [ :create ]
 
   def create
     begin
