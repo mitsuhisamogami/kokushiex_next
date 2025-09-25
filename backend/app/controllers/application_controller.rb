@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include CsrfProtectable
 
+  rescue_from AuthorizationService::UnauthorizedError, with: :handle_unauthorized
+
   protected
 
   def authenticate_request
@@ -42,7 +44,28 @@ class ApplicationController < ActionController::API
     render json: { error: "Unauthorized" }, status: :unauthorized
   end
 
+  def authorize!(action, resource = nil)
+    authorization_service.authorize!(action, resource)
+  end
+
+  def permit?(action, resource = nil)
+    authorization_service.permit?(action, resource)
+  end
+
   private
+
+  def authorization_service
+    @authorization_service ||= AuthorizationService.new(current_user)
+  end
+
+  def handle_unauthorized(exception)
+    render json: {
+      error: "insufficient_permissions",
+      message: exception.message,
+      code: "AUTH_403",
+      required_role: exception.required_role
+    }, status: :forbidden
+  end
 
   def extract_token_from_header
     if request.headers["Authorization"].present?
