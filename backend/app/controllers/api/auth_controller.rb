@@ -44,6 +44,7 @@ module Api
     # GET /api/auth/me
     def me
       if current_user
+        authorize!(:edit_profile)
         render json: { user: user_response(current_user) }, status: :ok
       else
         render json: { error: "Not authenticated" }, status: :unauthorized
@@ -79,6 +80,7 @@ module Api
         email: user.email,
         name: user.name,
         is_guest: user.is_guest,
+        role: user.role,
         created_at: user.created_at,
         updated_at: user.updated_at
       }

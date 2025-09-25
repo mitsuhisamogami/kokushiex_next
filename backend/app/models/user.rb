@@ -3,6 +3,13 @@ class User < ApplicationRecord
   GUEST_USER_LIMIT = 200
   GUEST_EXPIRATION_HOURS = 24
 
+  # ロール定義
+  enum role: {
+    guest: 0,
+    regular: 1,
+    admin: 2
+  }
+
   has_secure_password validations: false
 
   validates :email, uniqueness: true, allow_nil: true
@@ -32,6 +39,7 @@ class User < ApplicationRecord
       email: nil,
       name: nil,
       is_guest: true,
+      role: :guest,  # 新しいrole属性を設定
       guest_expires_at: GUEST_EXPIRATION_HOURS.hours.from_now
     )
     user.password_digest = BCrypt::Password.create(random_string)
