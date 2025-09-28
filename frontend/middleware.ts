@@ -10,46 +10,26 @@ const protectedPaths = ['/dashboard', '/profile', '/settings'];
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 一時的に全てのリクエストを通す（デバッグ用）
-  console.log(`Middleware bypassed for: ${pathname}`);
-  return NextResponse.next();
-
-  /* 認証チェックを一時的に無効化
   // publicパスはそのまま通す
   if (publicPaths.some(path => pathname === path || pathname.startsWith('/api/'))) {
     return NextResponse.next();
   }
 
-  // 保護されたパスの場合はトークンをチェック
+  // 保護されたパスの場合は軽量な認証チェックのみ実行
   if (protectedPaths.some(path => pathname.startsWith(path))) {
-    // クッキーからトークンを取得（クライアントサイドのlocalStorageは使えない）
+    // クッキーからトークンを取得（存在チェックのみ）
     const token = request.cookies.get('auth_token')?.value;
 
+    // トークンがない場合のみリダイレクト
     if (!token) {
-      // トークンがない場合はサインインページにリダイレクト
       return NextResponse.redirect(new URL('/signin', request.url));
     }
 
-    // トークンの検証
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://backend:3000/api'}/auth/verify`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        // トークンが無効な場合はサインインページにリダイレクト
-        return NextResponse.redirect(new URL('/signin', request.url));
-      }
-    } catch (error) {
-      console.error('Token verification failed:', error);
-      return NextResponse.redirect(new URL('/signin', request.url));
-    }
+    // トークンが存在する場合は、詳細な検証はクライアントサイドに委譲
+    // API通信は行わず、パフォーマンスを重視
   }
 
   return NextResponse.next();
-  */
 }
 
 export const config = {

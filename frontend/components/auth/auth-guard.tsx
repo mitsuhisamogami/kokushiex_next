@@ -13,24 +13,11 @@ export function AuthGuard({ children, redirectTo = '/signin' }: AuthGuardProps) 
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  // デバッグログ
-  console.log('AuthGuard state:', { loading, user: !!user, userDetails: user });
-
   useEffect(() => {
-    console.log('AuthGuard useEffect:', { loading, user: !!user });
-
-    // ローディング中は何もしない
-    if (loading) {
-      console.log('Still loading, waiting...');
-      return;
-    }
-
-    // ローディングが完了して、ユーザーが存在しない場合のみリダイレクト
+    // ミドルウェアで基本認証は済んでいる前提
+    // 追加の権限チェックやユーザー情報の確認のみ実行
     if (!loading && !user) {
-      console.log('No user found, redirecting to:', redirectTo);
       router.push(redirectTo);
-    } else if (!loading && user) {
-      console.log('User authenticated, showing dashboard');
     }
   }, [loading, user, router, redirectTo]);
 
@@ -46,7 +33,7 @@ export function AuthGuard({ children, redirectTo = '/signin' }: AuthGuardProps) 
     );
   }
 
-  // 未認証の場合は何も表示しない（リダイレクト処理はuseEffectで行う）
+  // 未認証の場合は何も表示しない
   if (!user) {
     return null;
   }

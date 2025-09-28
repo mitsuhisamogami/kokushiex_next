@@ -23,11 +23,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
 
-  // 初回マウント時にトークンをチェック
+  // 初回マウント時にトークンをチェック（localStorageとcookieの同期を確保）
   useEffect(() => {
     const storedToken = localStorage.getItem('auth_token');
-    if (storedToken) {
-      verifyAndLoadUser(storedToken);
+    const cookieToken = getCookieToken();
+
+    // localStorageとcookieのトークンが一致しない場合は同期
+    if (storedToken !== cookieToken) {
+      if (storedToken) {
+        // localStorageにあるがcookieにない場合はcookieに設定
+        setCookieToken(storedToken);
+      } else if (cookieToken) {
+        // cookieにあるがlocalStorageにない場合はlocalStorageに設定
+        localStorage.setItem('auth_token', cookieToken);
+      }
+    }
+
+    const token = storedToken || cookieToken;
+    if (token) {
+      verifyAndLoadUser(token);
     } else {
       setLoading(false);
     }
@@ -51,17 +65,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Cookieからトークンを取得するヘルパー関数
+  const getCookieToken = (): string | null => {
+    if (typeof document === 'undefined') return null;
+    const cookies = document.cookie.split(';');
+    const authCookie = cookies.find(cookie => cookie.trim().startsWith('auth_token='));
+    return authCookie ? authCookie.split('=')[1] : null;
+  };
+
+  // Cookieにトークンを設定するヘルパー関数
+  const setCookieToken = (token: string) => {
+    if (typeof document !== 'undefined') {
+      document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
+    }
+  };
+
   const setAuthToken = (token: string) => {
     // localStorageに保存
     localStorage.setItem('auth_token', token);
     // cookieにも保存（middleware用）
-    document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
+    setCookieToken(token);
   };
 
   const clearAuthToken = () => {
     localStorage.removeItem('auth_token');
     // cookieを削除
-    document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    if (typeof document !== 'undefined') {
+      document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    }
   };
 
   const login = async (email: string, password: string) => {
