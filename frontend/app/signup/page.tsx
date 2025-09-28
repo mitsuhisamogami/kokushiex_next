@@ -55,7 +55,7 @@ export default function SignUpPage() {
         formData.passwordConfirmation,
         formData.name || undefined
       );
-      router.push('/');
+      router.push('/dashboard');
     } catch (error) {
       setErrors({
         submit: error instanceof Error ? error.message : '登録に失敗しました',

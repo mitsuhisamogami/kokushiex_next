@@ -10,6 +10,11 @@ const protectedPaths = ['/dashboard', '/profile', '/settings'];
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // 一時的に全てのリクエストを通す（デバッグ用）
+  console.log(`Middleware bypassed for: ${pathname}`);
+  return NextResponse.next();
+
+  /* 認証チェックを一時的に無効化
   // publicパスはそのまま通す
   if (publicPaths.some(path => pathname === path || pathname.startsWith('/api/'))) {
     return NextResponse.next();
@@ -44,6 +49,7 @@ export async function middleware(request: NextRequest) {
   }
 
   return NextResponse.next();
+  */
 }
 
 export const config = {

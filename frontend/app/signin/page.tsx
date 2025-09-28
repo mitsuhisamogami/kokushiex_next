@@ -26,7 +26,7 @@ export default function SignInPage() {
     try{
       setIsLoading(true);
       await login(email, password);
-      router.push('/');
+      router.push('/dashboard');
     }
     catch(error){
       setError(error instanceof Error ? error.message : 'サインインに失敗しました');
