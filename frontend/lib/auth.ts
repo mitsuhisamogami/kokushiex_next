@@ -36,10 +36,6 @@ export interface AuthError {
   errors?: string[];
 }
 
-// TODO(human): クライアント側でトークンを保存・取得する関数を実装
-// localStorage or cookieを使用してトークンを管理
-// セキュリティを考慮した実装が必要
-
 import { addCsrfTokenToHeaders, isCsrfError } from './csrf';
 
 const TOKEN_KEY = 'auth_token';
@@ -175,12 +171,14 @@ export async function verifyToken(token: string): Promise<boolean> {
     });
 
     if (!response.ok) {
+      console.error('Token verification failed:', response.status, response.statusText);
       return false;
     }
 
     const data = await response.json();
     return data.valid === true;
-  } catch {
+  } catch (error) {
+    console.error('Token verification error:', error);
     return false;
   }
 }
