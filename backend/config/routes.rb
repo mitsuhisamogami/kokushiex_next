@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
     # Guest user routes
     post "guest_sessions", to: "guest_sessions#create"
+
+    # Tests routes
+    resources :tests, only: [:index]
   end
 
   # Defines the root path route ("/")
